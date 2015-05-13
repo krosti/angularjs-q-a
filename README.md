@@ -3,6 +3,15 @@ AngularJS Interview's Q&A
 
 Curated list with some basic **questions** when a FrontEnd-WebUI-JavaScript Developer is interviewee.
 
+### Tests
+
+Test Exam 1: [http://plnkr.co/edit/8C1UgO?p=info](http://plnkr.co/edit/8C1UgO?p=info)
+
+```javascript
+    var tags = [angular1.3, directives, $http, formValidation, ngMessages, filters];
+  ```
+
+
 #Questions
 
 1. [Why to use AngularJS?]()
