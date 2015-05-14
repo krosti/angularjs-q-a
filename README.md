@@ -166,7 +166,8 @@ The main role of these directives is explained as:
 
 ### 14) What are different ways to invoke a directive?
 
-There are four methods to invoke a directive in your angular app which are equivalent.| Method          | Syntax |
+There are four methods to invoke a directive in your angular app which are equivalent.
+| Method          | Syntax |
 |-----------------|--------|
 | As an attribute |    ```<span my-directive></span>```    |
 | As a class      |    ```<span class="my-directive: expression;"></span>```    |
@@ -174,6 +175,47 @@ There are four methods to invoke a directive in your angular app which are equiv
 | As a comment    |    ```<!-- directive: my-directive expression -->```    |
 
 
+### 15) What is restrict option in directive?
+
+The restrict option in angular directive, is used to specify how a directive will be invoked in your angular app i.e. as an attribute, class, element or comment. 
+
+There are four valid options for restrict:
+
+```html
+'A' (Attribute)- <span my-directive></span>'C' (Class)- <span class="my-directive:expression;"></span> 
+'E' (Element)- <my-directive></my-directive>'M' (Comment)- <!-- directive: my-directive expression -->
+```
+
+
+### 16) Can you define multiple restrict options on a directive?
+
+You can also specify multiple restrict options to support more than one methods of directive invocation as an element or an attribute. Make sure all are specified in the restrict keyword as: ```restrict: 'EA'``` .
+
+
+### 17) What is auto bootstrap process in AngularJS?
+
+Angular initializes automatically upon ```DOMContentLoaded``` event or when the angular.js script is downloaded to the browser and the ```document.readyState``` is set to ```complete```. At this point AngularJS looks for the ```ng-app``` directive which is the root of angular app compilation and tells about AngularJS part within DOM. When the ```ng-app``` directive is found then Angular will:
+
+1. Load the module associated with the directive.2. Create the application injector.3. Compile the DOM starting from the ng-app root element.This process is called auto-bootstrapping.```html
+<html><body ng-app="myApp"><div ng-controller="Ctrl"> Hello {{msg}}!</div>    <script src="lib/angular.js"></script>    <script>var app = angular.module('myApp', []); app.controller('Ctrl', function ($scope) {              $scope.msg = 'World';          });    </script></body></html>
+```### 18) What is manual bootstrap process in AngularJS?
+
+You can manually initialized your angular app by using angular.bootstrap() function. This function takes the modules as parameters and should be called within angular.element(document).ready() function. The angular.element(document).ready() function is fired when the DOM is ready for manipulation.
+
+```html
+<html><body>    <div ng-controller="Ctrl">Hello {{msg}}! </div>    <script src="lib/angular.js"></script>    <script>        var app = angular.module('myApp', []);        app.controller('Ctrl', function ($scope) {              $scope.msg = 'World';          });        //manual bootstrap processangular.element(document).ready(function () { angular.bootstrap(document, ['myApp']);});    </script></body></html>
+```
+
+Note:
+ - You should not use the ng-app directive when manually bootstrapping your app. - You should not mix up the automatic and manual way of bootstrapping your app. - Define modules, controller, services etc. before manually bootstrapping your app as defined in above example.
+
+
+
+
 --- 
+
 Thanks to many sites in particular to this guys: 
-http://www.slideshare.net/proshailendra/angular-js-interview-questions-answers-by-shailendra-chauhan
+
+ - http://www.slideshare.net/proshailendra/angular-js-interview-questions-answers-by-shailendra-chauhan
+ - http://java.dzone.com/articles/angularjs-interview-questions
+ - http://career.guru99.com/top-25-angular-js-interview-questions/
