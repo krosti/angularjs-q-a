@@ -14,7 +14,7 @@ Test Exam 1: [http://plnkr.co/edit/8C1UgO?p=info](http://plnkr.co/edit/8C1UgO?p=
 
 #Questions
 
-1. [Why to use AngularJS?]()
+1. [Why to use AngularJS?](#1)
 2. What are the advantage of AngularJS?
 3. Does AngularJS has dependency on jQuery? 
 4. What is jQLite/jQuery Lite? 
@@ -91,7 +91,7 @@ Test Exam 1: [http://plnkr.co/edit/8C1UgO?p=info](http://plnkr.co/edit/8C1UgO?p=
 ----
 #Answers
 
-### 1) Why to use AngularJS?
+### <a name="1"></a> 1) Why to use AngularJS?
 
 There are following reasons to choose AngularJS as a web development framework:
 1. It is based on MVC pattern which helps you to organize your web apps or web application properly.2. It extends HTML by attaching directives to your HTML markup with new attributes or tags and expressionsin order to define very powerful templates.3. It also allows you to create your own directives, making reusable components that fill your needs andabstract your DOM manipulation logic.4. It supports two-way data binding i.e. connects your HTML (views) to your JavaScript objects (models)seamlessly. In this way any change in model will update the view and vice versa without any DOMmanipulation or event handling.5. It encapsulates the behavior of your application in controllers which are instantiated with the help ofdependency injection.6. It supports services that can be injected into your controllers to use some utility code to fullfil your need.For example, it provides $http service to communicate with REST service.7. It supports dependency injection which helps you to test your angular app code very easily.8. Also, AngularJS is mature community to help you. It has widely support over the internet.
@@ -111,6 +111,8 @@ AngularJS has no dependency on jQuery library. But it can be used with jQuery li
 ### 4) What is jQLite/jQuery Lite?
 
 jQLite is a subset of jQuery that is built directly into AngularJS. jQLite provides you all the useful features of jQuery. In fact it provides you limited features or functions of jQuery. 
+
+
 ### 5) How to access jQLite? 
 
 jQuery lite or the full jQuery library if available, can be accessed via the AngularJS code by using the element() function in AngularJS. Basically, ```angular.element()``` is an alias for the jQuery function.
@@ -161,7 +163,7 @@ AngularJS directives are a combination of AngularJS template markups (HTML attri
 
 The main role of these directives is explained as:
 
-- ng-app - Initialize the angular app.- ng-init - Initialize the angular app data.- ng-model - Bind the html elem
+- ```ng-app``` - Initialize the angular app.- ```ng-init``` - Initialize the angular app data.- ```ng-model``` - Bind the html elem
 
 
 ### 14) What are different ways to invoke a directive?
@@ -200,7 +202,7 @@ Angular initializes automatically upon ```DOMContentLoaded``` event or when the 
 <html><body ng-app="myApp"><div ng-controller="Ctrl"> Hello {{msg}}!</div>    <script src="lib/angular.js"></script>    <script>var app = angular.module('myApp', []); app.controller('Ctrl', function ($scope) {              $scope.msg = 'World';          });    </script></body></html>
 ```### 18) What is manual bootstrap process in AngularJS?
 
-You can manually initialized your angular app by using angular.bootstrap() function. This function takes the modules as parameters and should be called within angular.element(document).ready() function. The angular.element(document).ready() function is fired when the DOM is ready for manipulation.
+You can manually initialized your angular app by using **angular.bootstrap()** function. This function takes the modules as parameters and should be called within **angular.element(document).ready()** function. The **angular.element(document).ready()** function is fired when the DOM is ready for manipulation.
 
 ```html
 <html><body>    <div ng-controller="Ctrl">Hello {{msg}}! </div>    <script src="lib/angular.js"></script>    <script>        var app = angular.module('myApp', []);        app.controller('Ctrl', function ($scope) {              $scope.msg = 'World';          });        //manual bootstrap processangular.element(document).ready(function () { angular.bootstrap(document, ['myApp']);});    </script></body></html>
@@ -210,7 +212,66 @@ Note:
  - You should not use the ng-app directive when manually bootstrapping your app. - You should not mix up the automatic and manual way of bootstrapping your app. - Define modules, controller, services etc. before manually bootstrapping your app as defined in above example.
 
 
+### 19) What is scope in AngularJS?
 
+Scope is a JavaScript object that refers to the application model. It acts as a context for evaluating angular expressions. Basically, it acts as glue between controller and view.
+
+Scopes are hierarchical in nature and follow the DOM structure of your AngularJS app. AngularJS has two scope objects: **$rootScope** and **$scope**.
+
+
+### 20) What is $scope and $rootScope?
+
+**$scope** - A $scope is a JavaScript object which is used for communication between controller and view. Basically, $scope binds a view (DOM element) to the model and functions defined in a controller.
+
+**$rootScope** - The $rootScope is the top-most scope. An app can have only one $rootScope which will be shared among all the components of an app. Hence it acts like a global variable. All other $scopes are children of the $rootScope.For example, suppose you have two controllers: Ctrl1 and Ctrl2 as given below:
+
+```html
+<!doctype html><html><body ng-app="myApp"><div ng-controller="Ctrl1" style="border:2px solid blue; padding:5px"> Hello {{msg}}!<br />Hello {{name}}! (rootScope) </div><br /><div ng-controller="Ctrl2" style="border:2px solid green; padding:5px">Hello {{msg}}! <br />Hey {{myName}}! <br />Hi {{name}}! (rootScope) </div>    <script src="lib/angular.js"></script>    <script>var app = angular.module('myApp', []); app.controller('Ctrl1', function ($scope, $rootScope) {            $scope.msg = 'World';            $rootScope.name = 'AngularJS';        });app.controller('Ctrl2', function ($scope, $rootScope) { $scope.msg = 'Dot Net Tricks';$scope.myName = $rootScope.name;});    </script></body></html>
+```
+
+
+### 21) What is scope hierarchy?
+
+The **$scope** object used by views in AngularJS are organized into a hierarchy. There is a root scope, and the **$rootScope** can has one or more child scopes. Each controller has its own **$scope** (which is a child of the **$rootScope**), so whatever variables you create on $scope within controller, these variables are accessible by the view based on this controller.
+
+For example, suppose you have two controllers: ParentController and ChildController as given below:
+
+```html
+<html><head>    <script src="lib/angular.js"></script>    <script>	var app = angular.module('ScopeChain', []); app.controller("parentController", function ($scope) {		$scope.managerName = 'Shailendra Chauhan';		$scope.$parent.companyName = 'Dot Net Tricks'; //attached to $rootScope
+	});	app.controller("childController", function ($scope, $controller) {            $scope.teamLeadName = 'Deepak Chauhan';        });    </script></head><body ng-app="ScopeChain">	<div ng-controller="parentController ">		<table style="border:2px solid #e37112"> 
+			<caption>Parent Controller</caption> 
+		<tr>             	<td>Manager Name</td>			<td>{{managerName}}</td> 
+		</tr>		<tr>             	<td>Company Name</td>			<td>{{companyName}}</td>
+		</tr>		<tr> 
+			<td>				<table ng-controller="childController" style="border:2px solid #428bca"> 
+					<caption>Child Controller</caption>				<tr>                         		<td>Team Lead Name</td>					<td>{{ teamLeadName }}</td> </tr>				<tr>					<td>Reporting To</td> <td>{{managerName}}</td>				</tr> <tr>                         		<td>Company Name</td>					<td>{{companyName}}</td> </tr>                		</table>              	</td>             </tr>        	</table>    </div></body></html>
+```
+
+
+### 22) What is the difference between $scope and scope?
+
+The module factory methods like controller, directive, factory, filter, service, animation, config and run receive arguments through dependency injection (DI). In case of DI, you inject the **scope object** with the dollar prefix i.e. **$scope**. The reason is the **injected arguments** must match to the names of **injectable objects** followed by dollar ($) prefix.**For example**, you can inject the scope and element objects into a controller as given below:
+
+```javascriptmodule.controller('MyController', function ($scope, $element) { // injected arguments });
+```
+
+When the methods like directive linker function don’t receive arguments through dependency injection, you just pass the **scope object** without using dollar prefix i.e. **scope**. The reason is the passing arguments are received by its caller.
+
+```javascript
+module.directive('myDirective', function () // injected arguments here {    return {        // linker function does not use dependency injection        link: function (scope, el, attrs) {	// the calling function will passes the three arguments to the linker: scope, element and attributes, in the same order	} };});
+```
+
+In the case of non-dependency injected arguments, you can give the name of injected objects as you wish. The above code can be re-written as:
+
+```javascript
+module.directive("myDirective", function () { 
+	return {        link: function (s, e, a) {            // s == scope	} };});// e == element
+```
+
+In short, in case of DI the **scope object** is received as **$scope** while in case of non-DI **scope object** is received as **scope** or with any name.
+
+
+..
 
 --- 
 
