@@ -387,6 +387,8 @@ level-Two: post link
 level-One: post link
 ```
 
+Example [link](https://jsfiddle.net/krosti/8bfao4em/).
+
 ### 27) What directives are user to show and hide HTML elements in AngularJS?
 
 ...
